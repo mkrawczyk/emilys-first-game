@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://by23q5q73n0r8"]
+
+[ext_resource type="Texture2D" uid="uid://d0vjiwgskwnkl" path="res://placeholder-art/lizgards-1_64x70.png" id="1_4hpke"]
+[ext_resource type="Script" path="res://lizgard.gd" id="1_rbcq2"]
+[ext_resource type="Texture2D" uid="uid://b6t0r6qivtwjt" path="res://placeholder-art/lizgards-1_walk1.png" id="2_ookju"]
+[ext_resource type="Texture2D" uid="uid://dyylud0dnuxcm" path="res://placeholder-art/lizgards-1_walk2.png" id="3_cxtdf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p34vo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4hpke")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ookju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cxtdf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21k6m"]
+radius = 21.0
+height = 50.0
+
+[node name="Lizgard" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_rbcq2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_p34vo")
+animation = &"walk"
+frame = 1
+frame_progress = 0.577397
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 2)
+shape = SubResource("CapsuleShape2D_21k6m")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-8, -3)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

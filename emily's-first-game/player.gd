@@ -1,10 +1,17 @@
 extends Area2D
 
 @export var speed = 400
+signal hit
 var screen_size
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	hide()	# Hiding the player when the game starts
 	
 func _process(delta):
 	var velocity = Vector2.ZERO # movement vector
@@ -30,3 +37,9 @@ func _process(delta):
 		$AnimatedSprite2D.animation = "walk"
 		$AnimatedSprite2D.flip_v = false
 		$AnimatedSprite2D.flip_h = velocity.x < 0
+
+func _on_body_entered(body):
+	hide()
+	hit.emit()
+	$CollisionShape2D.set_deferred("disabled", true)
+	
