@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://1be8ul0nb1pv"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_3rvgu"]
+[ext_resource type="Texture2D" uid="uid://h4l2vmqdh1ei" path="res://placeholder-art/bunnsalot-64x130.png" id="1_ejlym"]
+[ext_resource type="Texture2D" uid="uid://cqtfhp3umqsoi" path="res://placeholder-art/bunnsalot-walking_1-64x130.png" id="2_7fr4c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aexaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ejlym")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ejlym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7fr4c")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwl3m"]
+radius = 29.0
+height = 124.0
+
+[node name="Player" type="Area2D"]
+position = Vector2(3, 0)
+script = ExtResource("1_3rvgu")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_aexaw")
+animation = &"walk"
+frame_progress = 0.963191
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_pwl3m")
